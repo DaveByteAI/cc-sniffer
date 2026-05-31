@@ -93,6 +93,29 @@ Headers containing `authorization`, `x-api-key`, or `api-key` are redacted in st
 | `GET /api/events` | SSE stream for real-time request notifications |
 | `*` | Catch-all proxy — forwards to upstream after logging |
 
+## KV Cache Considerations
+
+If you're building a third-party inference engine that consumes these requests, naive prefix caching won't work:
+
+| Issue | Detail | Fix |
+|-------|--------|-----|
+| **cch rotation** | `system[0]` billing header contains a 5-char hex that changes every request. Placed at prompt position 0. | Strip `system[0]` — it's metadata, not instruction text. |
+| **tools position drift** | tools (87% of prompt, stable across all requests) sit *after* messages in wire order. As conversation grows, tool positions shift. | Move tools before messages, or cache in a separate slot. |
+| **mid-conversation system** | Skills list injected as `role: "system"` in messages. Changes per project. | Treat as dynamic; don't let it break the stable prefix. |
+| **thinking cleanup** | `context_management.edits` instructs the backend to strip previous `thinking` blocks. | Honor the directive, or prompt bloats with stale reasoning. |
+| **cache_control: ephemeral** | Only system[1-2] and last user message are marked. Tools and history are *never* cached. 5-min TTL. | Maintain your own cache for stable blocks. |
+| **envelope noise** | `time`, `content-length`, `body_sha256` change every request. | Don't feed envelope fields into the prompt. |
+
+**Correct prompt assembly order:**
+
+```
+system[2] (harness) → system[1] (identity) → tools[] → messages[]
+```
+
+Strip `system[0]` and envelope fields. Cache system blocks and tools independently from the growing message history.
+
+> 中文版见 [README_CN.md](README_CN.md)
+
 ## License
 
 MIT
