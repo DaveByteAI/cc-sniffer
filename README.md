@@ -1,4 +1,4 @@
-# LLM Sniffer
+# CC Sniffer
 
 A lightweight MITM proxy that captures and inspects LLM API requests in real time. Built for debugging Claude Code's prompt assembly, cache strategy, and tool definitions.
 
@@ -18,8 +18,8 @@ Claude Code sends massive API requests — 80%+ of the payload is tool definitio
 
 ```bash
 # 1. Clone
-git clone https://github.com/your-username/llm-sniffer.git
-cd llm-sniffer
+git clone https://github.com/your-username/cc-sniffer.git
+cd cc-sniffer
 
 # 2. Install dependencies (only httpx + fastapi + uvicorn)
 pip install httpx fastapi uvicorn
@@ -44,7 +44,7 @@ Claude Code ──POST /v1/messages──▶ llm_sniffer.py ──forward──�
                    │               saves to disk
                    │                      │
                    ▼                      ▼
-          http://127.0.0.1:8000    llm-sniffer-logs/
+          http://127.0.0.1:8000    cc-sniffer-logs/
           (live inspector UI)      (JSON log files)
 ```
 
@@ -56,7 +56,7 @@ The proxy intercepts all HTTP requests, saves them as timestamped JSON files, an
 |------|---------|
 | `llm_sniffer.py` | FastAPI proxy server (~180 lines) |
 | `sniffer_ui.html` | Inspector UI (~1000 lines, single-file, zero dependencies) |
-| `llm-sniffer-logs/` | Auto-created directory for intercepted request logs |
+| `cc-sniffer-logs/` | Auto-created directory for intercepted request logs |
 
 Only the first two files are required. The logs directory is created automatically on first run.
 

@@ -13,7 +13,7 @@ from starlette.background import BackgroundTask
 
 app = FastAPI()
 
-LOG_DIR = Path("llm-sniffer-logs")
+LOG_DIR = Path("cc-sniffer-logs")
 LOG_DIR.mkdir(exist_ok=True)
 
 OPENAI_TARGET = os.getenv("OPENAI_TARGET", "https://api.openai.com")

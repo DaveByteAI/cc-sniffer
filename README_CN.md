@@ -1,4 +1,4 @@
-# LLM Sniffer
+# CC Sniffer
 
 > English version: [README.md](README.md)
 
@@ -20,8 +20,8 @@ Claude Code 发送的 API 请求非常庞大——80%+ 的载荷是工具定义�
 
 ```bash
 # 1. 克隆
-git clone https://github.com/your-username/llm-sniffer.git
-cd llm-sniffer
+git clone https://github.com/your-username/cc-sniffer.git
+cd cc-sniffer
 
 # 2. 安装依赖（仅需 httpx + fastapi + uvicorn）
 pip install httpx fastapi uvicorn
@@ -46,7 +46,7 @@ Claude Code ──POST /v1/messages──▶ llm_sniffer.py ──转发──�
                    │               存入磁盘
                    │                      │
                    ▼                      ▼
-          http://127.0.0.1:8000    llm-sniffer-logs/
+          http://127.0.0.1:8000    cc-sniffer-logs/
           (实时 Inspector UI)      (JSON 日志文件)
 ```
 
@@ -58,7 +58,7 @@ Claude Code ──POST /v1/messages──▶ llm_sniffer.py ──转发──�
 |------|------|
 | `llm_sniffer.py` | FastAPI 代理服务器（~180 行） |
 | `sniffer_ui.html` | Inspector UI（~1000 行，单文件，零依赖） |
-| `llm-sniffer-logs/` | 自动创建的日志目录 |
+| `cc-sniffer-logs/` | 自动创建的日志目录 |
 
 仅需前两个文件即可运行。日志目录首次启动时自动创建。
 
