@@ -27,7 +27,7 @@ cd cc-sniffer
 pip install httpx fastapi uvicorn
 
 # 3. 启动代理
-python llm_sniffer.py
+python cc_sniffer.py
 ```
 
 然后将 Claude Code 指向它：
@@ -41,7 +41,7 @@ ANTHROPIC_BASE_URL=http://127.0.0.1:8000 claude
 ## 架构
 
 ```
-Claude Code ──POST /v1/messages──▶ llm_sniffer.py ──转发──▶ DeepSeek / Anthropic API
+Claude Code ──POST /v1/messages──▶ cc_sniffer.py ──转发──▶ DeepSeek / Anthropic API
                    │                      │
                    │               存入磁盘
                    │                      │
@@ -56,7 +56,7 @@ Claude Code ──POST /v1/messages──▶ llm_sniffer.py ──转发──�
 
 | 文件 | 用途 |
 |------|------|
-| `llm_sniffer.py` | FastAPI 代理服务器（~180 行） |
+| `cc_sniffer.py` | FastAPI 代理服务器（~180 行） |
 | `sniffer_ui.html` | Inspector UI（~1000 行，单文件，零依赖） |
 | `cc-sniffer-logs/` | 自动创建的日志目录 |
 

@@ -25,7 +25,7 @@ cd cc-sniffer
 pip install httpx fastapi uvicorn
 
 # 3. Start the proxy
-python llm_sniffer.py
+python cc_sniffer.py
 ```
 
 Then point Claude Code at it:
@@ -39,7 +39,7 @@ Open `http://127.0.0.1:8000` in a browser to see the inspector UI.
 ## Architecture
 
 ```
-Claude Code ──POST /v1/messages──▶ llm_sniffer.py ──forward──▶ DeepSeek / Anthropic API
+Claude Code ──POST /v1/messages──▶ cc_sniffer.py ──forward──▶ DeepSeek / Anthropic API
                    │                      │
                    │               saves to disk
                    │                      │
@@ -54,7 +54,7 @@ The proxy intercepts all HTTP requests, saves them as timestamped JSON files, an
 
 | File | Purpose |
 |------|---------|
-| `llm_sniffer.py` | FastAPI proxy server (~180 lines) |
+| `cc_sniffer.py` | FastAPI proxy server (~180 lines) |
 | `sniffer_ui.html` | Inspector UI (~1000 lines, single-file, zero dependencies) |
 | `cc-sniffer-logs/` | Auto-created directory for intercepted request logs |
 
